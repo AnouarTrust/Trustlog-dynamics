@@ -1,0 +1,12 @@
+{
+    "timestamp": "2026-03-14T22:56:41.737666",
+    "incident_id": "TRL-1773529001",
+    "category": "ALGORITHMIC_FLASH_CRASH",
+    "metrics": {
+        "final_burn_rate": 0.03528,
+        "acceleration": 0.01848,
+        "signature": "Exponential Compounding"
+    },
+    "action": "TERMINATED_PROCESS_INFRASTRUCTURE",
+    "impact": "PREVENTED_CAPITAL_EXHAUSTION"
+}
