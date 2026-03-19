@@ -1,61 +1,65 @@
-# TrustLog dynamics
+# TrustLog Dynamics
 
 **Open-source cost monitor and kill switch for autonomous AI agents.**
 
-Catches runaway API spend in real-time. Kills rogue processes before they drain your wallet. Works with Claude, GPT, Gemini — any LLM.
+Your agents burn tokens while you sleep. TrustLog watches them so you don't wake up to a surprise bill. Works with Claude, GPT, Gemini — any LLM, any provider.
 
 ---
 
-## The Problem
+## Why This Exists
 
-You deploy an AI agent overnight to do research, write content, or run analysis. You wake up to a $200 API bill because the agent got stuck in a loop, or its context window exploded, or it just kept running with no one watching.
+Here's the scenario. You spin up an AI agent to do research, generate content, or run some analysis overnight. You go to bed. The agent gets stuck in a retry loop — or worse, its context window starts ballooning. By morning you've got a £150 bill for absolutely nothing useful.
 
-TrustLog Guard sits between your agent and your bank account. It monitors every API call in real-time and automatically kills the process when something goes wrong.
+Nobody's watching the meter. That's the problem.
+
+TrustLog Dynamics sits between your agent and your wallet. It monitors API spend in real-time and kills any process the moment something looks off. No human needed. It just runs.
 
 ## How It Works
 
-TrustLog Guard runs as a background daemon that watches your AI agent's server logs. It uses two financial-grade detection algorithms:
+TrustLog runs as a background daemon on your server. It reads your agent's logs and applies two detection algorithms — both borrowed from quantitative finance risk management:
 
-**Convexity Detection** — catches exponential cost acceleration. If your agent's spending is accelerating (second derivative > 0), it's snowballing. TrustLog kills it before the curve goes vertical.
+**Convexity Detection** — spots exponential cost acceleration. If your agent's spend rate is accelerating ( $d^2C/dt^2 > 0$ ), it's snowballing. TrustLog kills it before the curve goes vertical.
 
-**Zero-Variance Detection** — catches stuck retry loops. If your agent is making identical API calls with near-zero variance in cost, it's brain-dead and burning money on repeat. TrustLog snaps the connection.
+**Zero-Variance Detection** — spots stuck loops. If your agent keeps making the same API call at the same cost with near-zero variance ( $\sigma^2 < \epsilon$ ), it's brainless and burning cash on repeat. TrustLog cuts it off.
 
-When either trigger fires, TrustLog:
-1. Kills the rogue process immediately
-2. Generates a JSON incident report with full forensic data
-3. Logs the intercept for your records
+When either trigger fires:
+1. The rogue process gets killed immediately
+2. A JSON incident report is generated with full forensic data
+3. Everything is logged so you can see exactly what happened
 
-## Live Proof
+## Proved It Live
 
-We tested TrustLog Guard against real LLM agents in live-fire conditions:
+We ran TrustLog against real LLM agents. Two different providers. Two different failure modes. Caught both.
 
-| Intercept | Agent | What Happened | Result |
-|-----------|-------|---------------|--------|
-| [Snowball Intercept](TRL_Intercept_01_Convexity_Claude4.6.mp4) | Claude 4.6 Sonnet | Context window expanding exponentially | Killed at inflection point |
-| [Machine Gun Intercept](TRL_Intercept_02_ZeroVariance_Gemini3.1.mp4) | Gemini 3.1 Pro | Stuck in £0.0051 mechanical retry loop | Killed when variance hit zero |
+| Intercept | Agent | What Went Wrong | Outcome |
+| :--- | :--- | :--- | :--- |
+| [Snowball Intercept](TRL_Intercept_01_Convexity_Claude4.6.mp4) | Claude 4.6 Sonnet | Context window expanding exponentially | ✅ Killed at the inflection point |
+| [Machine Gun Intercept](TRL_Intercept_02_ZeroVariance_Gemini3.1.mp4) | Gemini 3.1 Pro | Stuck in a £0.0051 retry loop | ✅ Killed the moment variance hit zero |
 
-**Model-agnostic by design.** We proved on tape that TrustLog works across different LLM providers. It governs the cost layer, not the compute layer. It doesn't matter who wins the AI race — your spend is protected.
+**Model-agnostic by design.** We proved on camera that TrustLog works across providers. It governs the cost layer, not the compute layer — doesn't matter who wins the LLM race, your spend is protected.
 
-## Quick Start
+## Get Started
+
+Three commands. That's it.
 
 ```bash
 # Clone the repo
 git clone https://github.com/AnouarTrust/trustlog-guard.git
 cd trustlog-guard
 
-# Run the install script
+# Install
 chmod +x install_trustlog.sh
 ./install_trustlog.sh
 
-# Start the guardian daemon
+# Run
 python3 trustlog_governor.py
 ```
 
-TrustLog Guard runs as a `systemd` daemon in the background. Once started, it monitors your AI agent logs automatically.
+Runs as a `systemd` daemon in the background. Once it's up, it's watching your agent logs automatically.
 
-## Configuration
+## Configure It
 
-Edit the threshold values in `trustlog_governor.py` to match your risk tolerance:
+Open `trustlog_governor.py` and set your own thresholds:
 
 ```python
 CONVEXITY_THRESHOLD = 0.0    # Second derivative trigger (d²C/dt² > 0)
@@ -63,9 +67,25 @@ VARIANCE_EPSILON = 0.001     # Zero-variance trigger (σ² < ε)
 MAX_COST_PER_MINUTE = 0.50   # Hard cost ceiling ($/min)
 ```
 
+Tighter thresholds = more aggressive protection. Adjust to your risk appetite.
+
+## The Maths
+
+This isn't arbitrary threshold logic. It's built on the same frameworks used in financial risk management — applied to AI spend instead of bond portfolios.
+
+**Convexity trigger** — borrowed from fixed-income risk:
+
+$$\frac{d^2C}{dt^2} > 0 \implies \text{cost is accelerating} \implies \text{KILL}$$
+
+**Zero-variance trigger** — borrowed from statistical process control:
+
+$$\sigma^2 < \epsilon \implies \text{agent is stuck in a loop} \implies \text{KILL}$$
+
+Where $C$ = cumulative API cost, $t$ = time, $\sigma^2$ = rolling variance of cost per call, $\epsilon$ = minimum variance threshold.
+
 ## Incident Reports
 
-When TrustLog intercepts a rogue agent, it generates a detailed JSON report:
+Every intercept generates a detailed JSON autopsy:
 
 ```json
 {
@@ -79,7 +99,7 @@ When TrustLog intercepts a rogue agent, it generates a detailed JSON report:
 }
 ```
 
-See [`trustlog_incident_report.json`](trustlog_incident_report.json) for real intercept data from our live tests.
+See [`trustlog_incident_report.json`](trustlog_incident_report.json) for real data from our live tests.
 
 ## Architecture
 
@@ -96,7 +116,7 @@ See [`trustlog_incident_report.json`](trustlog_incident_report.json) for real in
          │ real-time monitoring
          ▼
 ┌─────────────────┐
-│  TrustLog Guard  │  ← background daemon
+│ TrustLog Dynamics│  ← background daemon
 │                  │
 │  ┌─────────────┐ │
 │  │ Convexity   │ │  d²C/dt² > 0 → KILL
@@ -113,35 +133,37 @@ See [`trustlog_incident_report.json`](trustlog_incident_report.json) for real in
 └─────────────────┘
 ```
 
-## Who Is This For
+## Who's This For
 
-- **Solo founders** running AI agents overnight for research, content, or code generation
-- **Small teams** deploying Claude, GPT, or Gemini agents across multiple workflows
-- **Anyone using OpenClaw, Claude Code, or similar agent frameworks** who wants cost protection
-- **DevOps engineers** adding AI cost governance to their infrastructure
+- **Solo founders** running agents overnight — research, content, code, whatever
+- **Small teams** deploying Claude, GPT, or Gemini across multiple workflows
+- **OpenClaw / Claude Code users** who want cost protection without babysitting
+- **DevOps engineers** adding AI cost governance to their stack
 
-## Roadmap
+## What's Coming
 
-- [ ] pip installable package (`pip install trustlog`)
-- [ ] Slack/Discord alerts when an agent is killed
-- [ ] Cost dashboard with daily/weekly spend tracking
-- [ ] Budget limits per agent / per workflow
+- [ ] `pip install trustlog` — proper package, one-line install
+- [ ] Slack / Discord alerts when an agent gets killed
+- [ ] Cost dashboard — daily and weekly spend tracking
+- [ ] Budget caps per agent and per workflow
 - [ ] Multi-agent monitoring from a single daemon
-- [ ] OpenClaw native integration
+- [ ] Native OpenClaw integration
 
 ## Built By
 
-**Anouar** — MSc Finance, University of Manchester. Building at the intersection of financial risk management and AI infrastructure.
+**Anouar** — MSc Finance, University of Manchester.
 
-TrustLog Guard applies quantitative finance concepts (convexity, variance analysis, cost-at-risk) to the problem of autonomous AI cost governance. The same math that monitors bond portfolios now monitors your AI agents.
+I built TrustLog Dynamics because I kept seeing the same problem — AI agents running up costs with nobody watching. The finance world has had circuit breakers and risk limits for decades. The AI world doesn't. So I brought the maths across.
+
+Convexity, variance analysis, cost-at-risk — the same tools that govern bond portfolios now govern your AI agents.
 
 - Twitter: [@Anouarbf2](https://twitter.com/Anouarbf2)
 - Comptex Labs: [comptexlabs.com](https://comptexlabs.com)
 
-## License
+## Licence
 
 MIT — use it, fork it, build on it.
 
 ---
 
-**Your AI agents work while you sleep. TrustLog Guard makes sure they don't rob you while you dream.**
+**Your AI agents work while you sleep. TrustLog Dynamics makes sure they don't rob you while you dream.**
