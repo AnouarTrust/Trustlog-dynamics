@@ -1,11 +1,22 @@
 <p align="center">
-  <img src="trustlog-dynamics-logo.svg" alt="TrustLog Dynamics" width="450"/>
+  <img src="trustlog-dynamics-logo.svg" alt="TrustLog Dynamics" width="600"/>
 </p>
-# TrustLog Dynamics
 
-**Open-source cost monitor and kill switch for autonomous AI agents.**
+<p align="center">
+  <strong>Open-source cost monitor and kill switch for autonomous AI agents.</strong><br>
+  Your agents burn tokens while you sleep. TrustLog Dynamics watches them so you don't wake up to a surprise bill.<br>
+  Works with Claude, GPT, Gemini — any LLM, any provider.
+</p>
 
-Your agents burn tokens while you sleep. TrustLog Dynamics watches them so you don't wake up to a surprise bill. Works with Claude, GPT, Gemini — any LLM, any provider.
+<p align="center">
+  <a href="#get-started">Install</a> · <a href="#proved-it-live">Live Proof</a> · <a href="#whats-coming">Roadmap</a> · <a href="https://comptexlabs.com">Comptex Labs</a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/licence-MIT-blue" alt="MIT Licence"/>
+  <img src="https://img.shields.io/badge/model--agnostic-Claude%20%7C%20GPT%20%7C%20Gemini-gold" alt="Model Agnostic"/>
+  <img src="https://img.shields.io/badge/status-live--tested-brightgreen" alt="Live Tested"/>
+</p>
 
 ---
 
