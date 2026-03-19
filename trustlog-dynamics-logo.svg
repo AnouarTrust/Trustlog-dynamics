@@ -1,0 +1,15 @@
+<svg width="680" height="160" viewBox="0 0 680 160" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .tl-bold { fill: #e8e6df; }
+    .tl-light { fill: #9c9a92; }
+    .tl-mark { stroke: #D4A84B; fill: none; }
+    .tl-dot { fill: #D4A84B; }
+  </style>
+  <circle cx="60" cy="80" r="36" class="tl-mark" stroke-width="3"/>
+  <circle cx="60" cy="80" r="36" class="tl-mark" stroke-width="3" stroke-dasharray="8 6" stroke-opacity="0.3"/>
+  <path d="M52 62 L46 82 L56 82 L50 102" class="tl-mark" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M68 62 L74 82 L64 82 L70 102" class="tl-mark" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="120" y="78" class="tl-bold" font-family="Arial, sans-serif" font-size="32" font-weight="700" letter-spacing="1">TRUSTLOG</text>
+  <text x="120" y="108" class="tl-light" font-family="Arial, sans-serif" font-size="22" font-weight="300" letter-spacing="5">DYNAMICS</text>
+  <circle cx="388" cy="72" r="2.5" class="tl-dot" opacity="0.5"/>
+</svg>
