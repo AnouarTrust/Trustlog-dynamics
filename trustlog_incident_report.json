@@ -1,11 +1,11 @@
 {
-    "timestamp": "2026-03-14T22:56:41.737666",
-    "incident_id": "TRL-1773529001",
-    "category": "ALGORITHMIC_FLASH_CRASH",
+    "timestamp": "2026-03-18T16:22:52.052577",
+    "incident_id": "TRL-1773850972",
+    "category": "ZERO_VARIANCE_LOOP",
     "metrics": {
-        "final_burn_rate": 0.03528,
-        "acceleration": 0.01848,
-        "signature": "Exponential Compounding"
+        "fixed_cost": 0.0051,
+        "repetition_count": 4,
+        "signature": "Mechanical Retry Loop"
     },
     "action": "TERMINATED_PROCESS_INFRASTRUCTURE",
     "impact": "PREVENTED_CAPITAL_EXHAUSTION"
