@@ -1,8 +1,11 @@
+<p align="center">
+  <img src="trustlog-dynamics-logo.svg" alt="TrustLog Dynamics" width="450"/>
+</p>
 # TrustLog Dynamics
 
 **Open-source cost monitor and kill switch for autonomous AI agents.**
 
-Your agents burn tokens while you sleep. TrustLog watches them so you don't wake up to a surprise bill. Works with Claude, GPT, Gemini — any LLM, any provider.
+Your agents burn tokens while you sleep. TrustLog Dynamics watches them so you don't wake up to a surprise bill. Works with Claude, GPT, Gemini — any LLM, any provider.
 
 ---
 
@@ -16,11 +19,11 @@ TrustLog Dynamics sits between your agent and your wallet. It monitors API spend
 
 ## How It Works
 
-TrustLog runs as a background daemon on your server. It reads your agent's logs and applies two detection algorithms — both borrowed from quantitative finance risk management:
+TrustLog Dynamics runs as a background daemon on your server. It reads your agent's logs and applies two detection algorithms — both borrowed from quantitative finance risk management:
 
-**Convexity Detection** — spots exponential cost acceleration. If your agent's spend rate is accelerating ( $d^2C/dt^2 > 0$ ), it's snowballing. TrustLog kills it before the curve goes vertical.
+**Convexity Detection** — spots exponential cost acceleration. If your agent's spend rate is accelerating ( $d^2C/dt^2 > 0$ ), it's snowballing. TrustLog Dynamics kills it before the curve goes vertical.
 
-**Zero-Variance Detection** — spots stuck loops. If your agent keeps making the same API call at the same cost with near-zero variance ( $\sigma^2 < \epsilon$ ), it's brainless and burning cash on repeat. TrustLog cuts it off.
+**Zero-Variance Detection** — spots stuck loops. If your agent keeps making the same API call at the same cost with near-zero variance ( $\sigma^2 < \epsilon$ ), it's brainless and burning cash on repeat. TrustLog Dynamics cuts it off.
 
 When either trigger fires:
 1. The rogue process gets killed immediately
@@ -29,14 +32,14 @@ When either trigger fires:
 
 ## Proved It Live
 
-We ran TrustLog against real LLM agents. Two different providers. Two different failure modes. Caught both.
+We ran TrustLog Dynamics against real LLM agents. Two different providers. Two different failure modes. Caught both.
 
 | Intercept | Agent | What Went Wrong | Outcome |
 | :--- | :--- | :--- | :--- |
-| [Snowball Intercept]([TRL_Intercept_01_Convexity_Claude4.6.mp4](https://youtu.be/vIoWBR8MJh4) | Claude 4.6 Sonnet | Context window expanding exponentially | ✅ Killed at the inflection point |
-| https://youtu.be/BSZDVTbdCjI | Gemini 3.1 Pro | Stuck in a £0.0051 retry loop | ✅ Killed the moment variance hit zero |
+| [Snowball Intercept](https://youtu.be/vIoWBR8MJh4) | Claude 4.6 Sonnet | Context window expanding exponentially | ✅ Killed at the inflection point |
+| [Machine Gun Intercept](https://youtu.be/BSZDVTbdCjI) | Gemini 3.1 Pro | Stuck in a £0.0051 retry loop | ✅ Killed the moment variance hit zero |
 
-**Model-agnostic by design.** We proved on camera that TrustLog works across providers. It governs the cost layer, not the compute layer — doesn't matter who wins the LLM race, your spend is protected.
+**Model-agnostic by design.** We proved on camera that TrustLog Dynamics works across providers. It governs the cost layer, not the compute layer — doesn't matter who wins the LLM race, your spend is protected.
 
 ## Get Started
 
@@ -44,8 +47,8 @@ Three commands. That's it.
 
 ```bash
 # Clone the repo
-git clone https://github.com/AnouarTrust/trustlog-guard.git
-cd trustlog-guard
+git clone https://github.com/AnouarTrust/Trustlog-dynamics.git
+cd Trustlog-dynamics
 
 # Install
 chmod +x install_trustlog.sh
@@ -151,7 +154,7 @@ See [`trustlog_incident_report.json`](trustlog_incident_report.json) for real da
 
 ## Built By
 
-**Anouar** — MSc Finance, University of Manchester.
+**Anouar** — MSc Finance. 
 
 I built TrustLog Dynamics because I kept seeing the same problem — AI agents running up costs with nobody watching. The finance world has had circuit breakers and risk limits for decades. The AI world doesn't. So I brought the maths across.
 
