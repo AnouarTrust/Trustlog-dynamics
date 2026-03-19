@@ -34,7 +34,7 @@ We ran TrustLog against real LLM agents. Two different providers. Two different 
 | Intercept | Agent | What Went Wrong | Outcome |
 | :--- | :--- | :--- | :--- |
 | [Snowball Intercept]([TRL_Intercept_01_Convexity_Claude4.6.mp4](https://youtu.be/vIoWBR8MJh4) | Claude 4.6 Sonnet | Context window expanding exponentially | ✅ Killed at the inflection point |
-| [Machine Gun Intercept](TRL_Intercept_02_ZeroVariance_Gemini3.1.mp4) | Gemini 3.1 Pro | Stuck in a £0.0051 retry loop | ✅ Killed the moment variance hit zero |
+| https://youtu.be/BSZDVTbdCjI | Gemini 3.1 Pro | Stuck in a £0.0051 retry loop | ✅ Killed the moment variance hit zero |
 
 **Model-agnostic by design.** We proved on camera that TrustLog works across providers. It governs the cost layer, not the compute layer — doesn't matter who wins the LLM race, your spend is protected.
 
