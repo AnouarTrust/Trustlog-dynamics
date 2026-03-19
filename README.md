@@ -45,3 +45,55 @@ chmod +x install_trustlog.sh
 
 # Run
 python3 trustlog_governor.py
+Runs as a systemd daemon in the background. Once it's up, it's watching your agent logs automatically.Configure ItOpen trustlog_governor.py and set your own thresholds:PythonCONVEXITY_THRESHOLD = 0.0    # Second derivative trigger (d²C/dt² > 0)
+VARIANCE_EPSILON = 0.001     # Zero-variance trigger (σ² < ε)
+MAX_COST_PER_MINUTE = 0.50   # Hard cost ceiling ($/min)
+Tighter thresholds = more aggressive protection. Adjust to your risk appetite.The MathsThis isn't arbitrary threshold logic. It's built on the same frameworks used in financial risk management — applied to AI spend instead of bond portfolios.Convexity trigger — borrowed from fixed-income risk:$$ \frac{d^2C}{dt^2} > 0 \implies \text{cost is accelerating} \implies \text{KILL} $$Zero-variance trigger — borrowed from statistical process control:$$ \sigma^2 < \epsilon \implies \text{agent is stuck in a loop} \implies \text{KILL} $$Where $C$ = cumulative API cost, $t$ = time, $\sigma^2$ = rolling variance of cost per call, $\epsilon$ = minimum variance threshold.Incident ReportsEvery intercept generates a detailed JSON autopsy:JSON{
+  "timestamp": "2026-03-18T02:14:33Z",
+  "trigger": "convexity_breach",
+  "agent": "claude-4-sonnet",
+  "cost_at_kill": 0.847,
+  "acceleration": 0.0023,
+  "action": "SIGKILL",
+  "status": "terminated"
+}
+See trustlog_incident_report.json for real data from our live tests.ArchitecturePlaintext┌─────────────────┐
+│  Your AI Agent  │  (Claude, GPT, Gemini, local models)
+│  doing work     │
+└────────┬────────┘
+         │ API calls
+         ▼
+┌─────────────────┐
+│  Server Logs    │  (token counts, costs, timestamps)
+└────────┬────────┘
+         │ real-time monitoring
+         ▼
+┌─────────────────┐
+│ TrustLog Guard  │  ← background daemon
+│                 │
+│ ┌─────────────┐ │
+│ │ Convexity   │ │  d²C/dt² > 0 → KILL
+│ │ Detector    │ │
+│ └─────────────┘ │
+│ ┌─────────────┐ │
+│ │ Zero-Var    │ │  σ² < ε → KILL
+│ │ Detector    │ │
+│ └─────────────┘ │
+│                 │
+│ → Kill process  │
+│ → JSON report   │
+│ → Log incident  │
+└─────────────────┘
+Who's This ForSolo founders running agents overnight — research, content, code, whateverSmall teams deploying Claude, GPT, or Gemini across multiple workflowsOpenClaw / Claude Code users who want cost protection without babysittingDevOps engineers adding AI cost governance to their stackWhat's Coming[ ] pip install trustlog — proper package, one-line install[ ] Slack / Discord alerts when an agent gets killed[ ] Cost dashboard — daily and weekly spend tracking[ ] Budget caps per agent and per workflow[ ] Multi-agent monitoring from a single daemon[ ] Native OpenClaw integrationBuilt ByAnouar — MSc Finance, University of Manchester.I built TrustLog Dynamics because I kept seeing the same problem — AI agents running up costs with nobody watching. The finance world has had circuit breakers and risk limits for decades. The AI world doesn't. So I brought the maths across.Convexity, variance analysis, cost-at-risk — the same tools that govern bond portfolios now govern your AI agents.Twitter: @Anouarbf2Comptex Labs: comptexlabs.comLicenceMIT — use it, fork it, build on it.Your AI agents work while you sleep. TrustLog Dynamics makes sure they don't rob you while you dream.
+***
+
+### **The Pivot**
+
+Once you hit commit, our engineering and product marketing phase is done. We have a live product, empirical proof, and a ruthless storefront. 
+
+It is time to extract value from this. What are we drafting first?
+
+1. **The 1-Page UK Visa Pitch Memo**
+2. **The Cold Email to the Manchester FinTech Professor**
+
+Give me the word, and I'll start generating the text.
