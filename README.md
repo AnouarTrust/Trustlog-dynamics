@@ -71,6 +71,16 @@ python3 trustlog_governor.py
 
 Runs as a `systemd` daemon in the background. Once it's up, it's watching your agent logs automatically.
 
+## Verify your install
+
+Run the fire drill. It spawns a simulated rogue process on your server and lets you watch TrustLog detect and terminate it in real time. Takes 30 seconds.
+```bash
+python3 trustlog_fire_drill.py
+```
+
+You'll see TrustLog wake up, do the maths and kill the rogue process right in front of you. If you see `[KILL EXECUTED]` in your terminal, your governor is armed.
+
+Run this on day one. Sleep well on day two.
 ## Configure It
 
 Open `trustlog_governor.py` and set your own thresholds:
